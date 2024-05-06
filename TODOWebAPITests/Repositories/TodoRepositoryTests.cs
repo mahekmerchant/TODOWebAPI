@@ -136,7 +136,7 @@ namespace TODOWebAPITests.Repositories
             using (var context = new TodoDbContext(options))
             {
                 var repository = new TodoRepository(context);
-                var todoItems = repository.GetTodoItemByUser(user, 1);
+                var todoItems = repository.GetTodoItemByUser(user, "Sample Todo");
 
                 // Assert
                 Assert.Equal("user9", todoItem.UserId);
@@ -149,8 +149,8 @@ namespace TODOWebAPITests.Repositories
         {
             // Arrange
             var options = CreateInMemoryDatabaseOptions();
-            var user = "user10";
-            var todoItem = new TodoItem { UserId = "user10", Text = "Sample Todo" };
+            var user = "user20";
+            var todoItem = new TodoItem { UserId = "user10", Text = "Sample Todo1" };
             using (var context = new TodoDbContext(options))
             {
                 context.TodoItems.Add(todoItem);
@@ -161,7 +161,7 @@ namespace TODOWebAPITests.Repositories
             using (var context = new TodoDbContext(options))
             {
                 var repository = new TodoRepository(context);
-                var todoItems = repository.GetTodoItemByUser(user, 4);
+                var todoItems = repository.GetTodoItemByUser(user, "Sample Todo1");
 
                 // Assert
                 Assert.Null(todoItems);

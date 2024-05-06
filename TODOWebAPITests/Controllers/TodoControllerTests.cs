@@ -140,7 +140,7 @@ namespace TODOWebAPITests.Controllers
             var controller = new TodoController(mockTodoRepository.Object, mockLogger.Object);
 
             // Act
-            var result = controller.DeleteTodoItem("nonExistingUser", 1);
+            var result = controller.DeleteTodoItem("nonExistingUser", "list1");
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
@@ -154,12 +154,12 @@ namespace TODOWebAPITests.Controllers
             var user = "existingUser";
             var mockTodoRepository = new Mock<ITodoRepository>();
             mockTodoRepository.Setup(repo => repo.UserExist(user)).Returns(true);
-            mockTodoRepository.Setup(repo => repo.GetTodoItemByUser(user, 1)).Returns<TodoItem>(null);
+            mockTodoRepository.Setup(repo => repo.GetTodoItemByUser(user, "list1")).Returns<TodoItem>(null);
             var mockLogger = new Mock<ILogger<TodoController>>();
             var controller = new TodoController(mockTodoRepository.Object, mockLogger.Object);
 
             // Act
-            var result = controller.DeleteTodoItem(user, 1);
+            var result = controller.DeleteTodoItem(user, "list1");
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
@@ -174,12 +174,12 @@ namespace TODOWebAPITests.Controllers
             var todoItem = new TodoItem { Id = 1, UserId = user, Text = "Todo text" };
             var mockTodoRepository = new Mock<ITodoRepository>();
             mockTodoRepository.Setup(repo => repo.UserExist(user)).Returns(true);
-            mockTodoRepository.Setup(repo => repo.GetTodoItemByUser(user, 1)).Returns(todoItem);
+            mockTodoRepository.Setup(repo => repo.GetTodoItemByUser(user, "list1")).Returns(todoItem);
             var mockLogger = new Mock<ILogger<TodoController>>();
             var controller = new TodoController(mockTodoRepository.Object, mockLogger.Object);
 
             // Act
-            var result = controller.DeleteTodoItem(user, 1);
+            var result = controller.DeleteTodoItem(user, "list1");
 
             // Assert
             Assert.IsType<NoContentResult>(result);
